@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Клевер — тренажёр печати</title>
+<style>
+:root{color-scheme:light;--ink:#203c30;--muted:#52695b;--line:#dce9dd;--dark:#22573e;--paper:#fffefa}
+*{box-sizing:border-box}body{margin:0;background:#edf5e9;color:var(--ink);font:16px system-ui,sans-serif}button{font:inherit;cursor:pointer;color:inherit}button:focus-visible,textarea:focus-visible{outline:3px solid #568862;outline-offset:3px}
+main{max-width:1120px;margin:auto;padding:28px 24px 48px}header,.bar,.section-top,.action,.hint{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}.brand{font-weight:800;font-size:23px}.brand span{display:inline-grid;place-items:center;background:#d7ebd4;border-radius:12px;width:42px;height:42px;margin-right:8px}
+.langs,.levels{display:flex;gap:5px;flex-wrap:wrap}.langs{background:#e0eddd;padding:4px;border-radius:14px}button{border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:8px 13px;font-weight:650}.langs button{border:0;background:transparent}button[aria-pressed=true],button.primary{background:var(--dark);color:white;border-color:var(--dark)}button:disabled{opacity:.45;cursor:default}
+.hero{position:relative;overflow:hidden;margin:24px 0 18px;padding:26px 30px;background:#dcefd9;border:1px solid #d1e6ce;border-radius:24px}.hero h1{font:700 clamp(35px,6vw,55px)/1.05 Georgia,serif;margin:0 0 8px}.hero p{margin:0;color:var(--muted);max-width:75%;position:relative}.bunny{position:absolute;right:5%;bottom:3px;font-size:clamp(48px,9vw,105px);line-height:1;transform:rotate(9deg)}
+.card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 5px 18px #24452e08}.layout{display:grid;grid-template-columns:minmax(0,1fr) 255px;gap:16px;margin-top:14px}.side{align-self:start}.side h2,.card h2{font-size:19px;margin:0}.muted{color:var(--muted)}.small{font-size:14px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.stat{background:#edf5e9;border-radius:12px;padding:9px 10px}.stat strong{display:block;font-size:23px}.stat span{font-size:13px;color:var(--muted)}
+.practice{position:relative;background:#f4f8ef;border:1px solid #dce9d9;border-radius:14px;padding:14px;cursor:text}.practice:focus-within{border-color:#6b9b71;box-shadow:0 0 0 2px #d5e8d0}.prompt{font:600 clamp(20px,3vw,27px)/1.65 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;color:#45634e}.word{display:inline-block}.done{color:#42784b}.current{background:#d2e8c7;border-bottom:2px solid #34704e;border-radius:3px;color:#183d27}.wrong{background:#ffdcd4;color:#923021}.practice textarea{position:absolute;inset:0;width:100%;height:100%;opacity:0;resize:none;cursor:text}.action{margin-top:12px}.track{height:5px;margin-top:12px;border-radius:10px;background:#e4eddf;overflow:hidden}.track div{height:100%;background:#589161;width:0}.keys{margin:12px 0}.row{display:flex;justify-content:center;gap:4px;margin:4px 0}.key{display:grid;place-items:center;position:relative;width:7%;min-width:0;aspect-ratio:1.08;border:1px solid #dae7d9;border-bottom-width:3px;border-radius:7px;background:#f3f7f1;font-weight:700;font-size:clamp(11px,2vw,16px)}.key.home,.finger{background:var(--finger)}.key.target,.finger.active{outline:2px solid #214f37;outline-offset:1px;background:var(--finger);color:#102e1c}.key.mark::after{content:'';position:absolute;bottom:3px;width:25%;height:2px;background:currentColor;opacity:.55}.key.space{width:36%;aspect-ratio:auto;height:30px}.key.shift{width:11%;aspect-ratio:auto}.hint{justify-content:flex-start;min-height:28px;margin-top:8px}
+.hands{display:flex;gap:12px;justify-content:center;margin:15px 0 5px}.hand{display:flex;align-items:end;gap:3px;border-bottom:15px solid #e4eee0;border-radius:0 0 29px 29px;padding:0 3px 3px}.finger{width:20px;height:var(--height);border-radius:11px 11px 5px 5px;display:grid;place-items:center;font:700 12px ui-monospace,monospace}.hand-labels{display:flex;justify-content:space-around;font-size:13px;color:var(--muted)}.side p{line-height:1.5}.side .hint{font-weight:700;color:var(--dark)}.side small{display:block;color:var(--muted);line-height:1.45}.record{border-top:1px solid var(--line);padding-top:12px;margin-bottom:0}
+@media(max-width:760px){.layout{grid-template-columns:1fr}.side{grid-row:2}.side .hands{justify-content:center}.hand-labels{max-width:225px;margin:auto}main{padding:14px 12px 28px}.hero{padding:20px}.card{padding:13px}}
+</style>
+<main>
+<header><div class="brand"><span aria-hidden="true">☘</span>Клевер</div><div class="langs" id="languages" role="group" aria-label="Язык уроков"></div></header>
+<section class="hero"><h1>Печатай вслепую</h1><p>От первых букв до целых текстов.</p><span class="bunny" aria-hidden="true">🐰</span></section>
+<div class="bar"><div class="levels" id="levels" role="group" aria-label="Этап обучения"></div><span id="progressLabel" class="muted small"></span></div>
+<div class="layout">
+<section class="card">
+<div class="section-top"><h2 id="title"></h2><span id="counter" class="small muted"></span></div>
+<div class="stats"><div class="stat"><strong id="speed">0</strong><span>знаков/мин</span></div><div class="stat"><strong id="accuracy">—</strong><span>точность</span></div><div class="stat"><strong id="errors">0</strong><span>ошибок</span></div></div>
+<div class="practice"><div class="prompt" id="prompt"></div><textarea id="typing" rows="1" aria-label="Набирай показанный текст" aria-describedby="prompt status" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea></div>
+<div class="track" aria-hidden="true"><div id="fill"></div></div>
+<div class="action"><button id="prev">Назад</button><button id="reset">↻ Повторить</button><button id="next" class="primary">Дальше</button></div>
+<p class="small muted" id="status" role="status"></p>
+<div class="keys" id="keys" aria-hidden="true"></div>
+</section>
+<aside class="card side"><h2>Куда ставить пальцы</h2><p class="small muted" id="rest"></p><div class="hands" id="hands" aria-hidden="true"></div><div class="hand-labels"><span>Левая</span><span>Правая</span></div><div class="hint" id="hint"></div><small>После нажатия возвращай палец на исходную клавишу. Пробел нажимай большим пальцем.</small><p class="record small" id="record"></p></aside>
+</div>
+</main>
+<script>
+'use strict';
+const courses = {
+  ru: {name:'Русский', layout:'ЙЦУКЕН', top:'йцукенгшщзхъ', home:'фывапролджэ', bottom:'ячсмитьбю.', extra:'ё', lessons:[
+    ['А и О','ао ао ооа ааао аоа оаа оа ао'],
+    ['Добавляем К','акак как ока аок око кака как ока'],
+    ['Домашний ряд','фыва олдж ва ол фы дж авы ждо пол ров'],
+    ['Верхний и нижний ряды','йц ук ен гш щз хъ яч см ит ьб юё'],
+    ['Короткие слова','как лак око сок мак кот дом сад лес ёж'],
+    ['Слова подлиннее','клевер кролик ягода цветок дорожка листочек'],
+    ['Утро в саду','Утром я вышел в сад. Под кустом сидел белый кролик, а на клевере блестела роса.'],
+    ['Лесная тропинка','Мы шли по лесной тропе. Ветер шевелил листья, и над травой порхали бабочки.']
+  ]},
+  en: {name:'English', layout:'QWERTY', top:'qwertyuiop[]', home:"asdfghjkl;'", bottom:'zxcvbnm,./', lessons:[
+    ['F и J','fj fj jjf fffj fjf jff jf fj'],
+    ['Добавляем D и K','fd jk df kj fdk jkd kjf dfj'],
+    ['Домашний ряд','asdf jkl; as df jk l; gh fj dk sl'],
+    ['Верхний и нижний ряды','qw er ty ui op zx cv bn m qz wp'],
+    ['Короткие слова','sad dad add ask lad fall hall flask'],
+    ['Слова подлиннее','clover rabbit garden meadow leaf blossom'],
+    ['A quiet morning','A little rabbit sat in the garden. The clover was wet, and the sun felt warm.'],
+    ['The forest path','We walked along the forest path. A soft breeze moved the leaves, and birds sang above us.']
+  ]},
+  de: {name:'Deutsch', layout:'QWERTZ', top:'qwertzuiopü+', home:'asdfghjklöä#', bottom:'yxcvbnm,.-', extra:'ß', lessons:[
+    ['F и J','fj fj jjf fffj fjf jff jf fj'],
+    ['Добавляем D и K','fd jk df kj fdk jkd kjf dfj'],
+    ['Домашний ряд','asdf jklö ä as df jk lö gh fj dk'],
+    ['Верхний и нижний ряды','qw er tz ui op üß yx cv bn m'],
+    ['Короткие слова','das der die mit und auf grün süß schön'],
+    ['Слова подлиннее','Klee Hase Garten Wiese Blätter Blüte'],
+    ['Im Garten','Ein kleiner Hase sitzt im Garten. Der Klee ist nass, und die Sonne wärmt die Wiese.'],
+    ['Der Waldweg','Wir gehen durch den Wald. Der Wind bewegt die Blätter, und die Vögel singen.']
+  ]}
+};
+const stages = [['Буквы',0],['Слова',4],['Тексты',6]];
+const colors = ['#ebd8ef','#f5dbce','#fae9b5','#cde7ba','#bfe4d2','#cde1f4','#e2d9f5','#f4d8e5','#e6ecdc'];
+const heights = [34,45,53,47,47,53,45,34];
+const names = ['Левый мизинец','Левый безымянный','Левый средний','Левый указательный','Правый указательный','Правый средний','Правый безымянный','Правый мизинец','Большой палец'];
+const columnFinger = [0,1,2,3,3,4,4,5,6,7,7,7];
+const homeColumns = [0,1,2,3,6,7,8,9];
+const byId = id => document.getElementById(id);
+const input = byId('typing');
+let saved = {};
+try { saved = JSON.parse(localStorage.getItem('clover-typing-v1')) || {}; } catch {}
+let lang = Object.hasOwn(courses,saved.lang) ? saved.lang : 'ru';
+let lesson, course, phrase, pos, attempts, errors, started, finished, missed, keyMap;
+function progress(){
+  saved[lang] ??= {lesson:0, completed:{}, best:{}};
+  return saved[lang];
+}
+function save(){
+  saved.lang = lang;
+  try { localStorage.setItem('clover-typing-v1',JSON.stringify(saved)); } catch {}
+}
+function element(tag, name, content){
+  const node = document.createElement(tag);
+  node.className = name;
+  node.textContent = content;
+  return node;
+}
+function toggleButtons(container, entries, selected, onSelect){
+  byId(container).replaceChildren(...entries.map(([label,value])=>{
+    const button = element('button','',label);
+    button.type = 'button';
+    button.setAttribute('aria-pressed',String(value===selected));
+    button.onclick = ()=>onSelect(value);
+    return button;
+  }));
+}
+function addKey(row, char, finger, style='', label=char.toUpperCase()){
+  const key = element('span','key '+style,label);
+  key.style.setProperty('--finger',colors[finger]);
+  row.append(key);
+  keyMap.set(char,{key,finger});
+}
+function keyboard(){
+  keyMap = new Map();
+  const keyboard = byId('keys');
+  keyboard.replaceChildren();
+  for (const [name, letters] of [['top',course.top],['home',course.home],['bottom',course.bottom]]) {
+    const row = element('div','row','');
+    if (name==='top' && lang==='ru') addKey(row,'ё',0);
+    if (name==='bottom') addKey(row,'shiftL',0,'shift','⇧');
+    [...letters].forEach((char,index)=>{
+      const home = name==='home' && homeColumns.includes(index);
+      const mark = home && [3,6].includes(index);
+      const finger = lang==='ru' && char==='.' ? 7 : columnFinger[index];
+      addKey(row,char,finger,(home?'home ':'')+(mark?'mark':''));
+    });
+    if (name==='top' && lang==='de') addKey(row,'ß',7);
+    if (name==='bottom') addKey(row,'shiftR',7,'shift','⇧');
+    keyboard.append(row);
+  }
+  if(lang==='ru'){
+    const period = keyMap.get('.');
+    keyMap.set(',',period);
+    keyMap.delete('.');
+    period.key.textContent = './,';
+    keyMap.set('.',period);
+  }
+  const row = element('div','row','');
+  addKey(row,' ',8,'space','Пробел');
+  keyboard.append(row);
+  const hands = byId('hands');
+  hands.replaceChildren();
+  for(const indexes of [[0,1,2,3],[4,5,6,7]]){
+    const hand = element('div','hand','');
+    for (const index of indexes){
+      const finger = element('span','finger',course.home[homeColumns[index]].toUpperCase());
+      finger.dataset.finger = index;
+      finger.style.setProperty('--finger',colors[index]);
+      finger.style.setProperty('--height',heights[index]+'px');
+      hand.append(finger);
+    }
+    hands.append(hand);
+  }
+}
+function begin(index,focus=false){
+  course = courses[lang];
+  lesson = Math.max(0,Math.min(course.lessons.length-1,index));
+  const data = progress();
+  data.lesson = lesson;
+  save();
+  phrase = [...course.lessons[lesson][1]];
+  pos = attempts = errors = 0;
+  started = finished = null;
+  missed = false;
+  input.disabled = false;
+  input.value = '';
+  input.lang = lang;
+  byId('prompt').lang = lang;
+  byId('title').textContent = course.lessons[lesson][0];
+  byId('counter').textContent = 'Урок '+(lesson+1)+' из '+course.lessons.length;
+  byId('prev').disabled = lesson===0;
+  byId('next').disabled = lesson===course.lessons.length-1;
+  byId('rest').textContent = 'Исходный ряд · '+homeColumns.slice(0,4).map(i=>course.home[i]).join('').toUpperCase()+' '+homeColumns.slice(4).map(i=>course.home[i]).join('').toUpperCase();
+  toggleButtons('languages',Object.entries(courses).map(([key,value])=>[value.name,key]),lang,value=>{
+    lang = value;
+    begin(progress().lesson,true);
+  });
+  toggleButtons('levels',stages,lesson>=6?6:lesson>=4?4:0,value=>begin(value,true));
+  keyboard();
+  message('Выбери раскладку '+course.layout+' и кликни по строке. Замер начнётся с первого нажатия.');
+  render();
+  if (focus) input.focus();
+}
+function message(value){ byId('status').textContent = value; }
+function metrics(){
+  const elapsed = started===null ? 0 : (finished ?? performance.now())-started;
+  return {speed:elapsed>=1000?Math.round(pos*60000/elapsed):0, accuracy:attempts?Math.round(pos*100/attempts):null};
+}
+function renderMetrics(){
+  const result = metrics();
+  byId('speed').textContent = result.speed;
+  byId('accuracy').textContent = result.accuracy===null?'—':result.accuracy+'%';
+  byId('errors').textContent = errors;
+}
+function render(){
+  renderMetrics();
+  const prompt = byId('prompt');
+  prompt.replaceChildren();
+  let word = element('span','word','');
+  phrase.forEach((char,index)=>{
+    if(char===' '){
+      prompt.append(word);
+      word = element('span','word','');
+    }
+    const part = element('span',index<pos?'done':index===pos?'current'+(missed?' wrong':''):'',char===' ' && index===pos?'␣':char);
+    if(char===' ') prompt.append(part);
+    else word.append(part);
+  });
+  prompt.append(word);
+  byId('fill').style.width = (100*pos/phrase.length)+'%';
+  for(const item of keyMap.values()) item.key.classList.remove('target');
+  document.querySelectorAll('.finger.active').forEach(item=>item.classList.remove('active'));
+  const char = phrase[pos];
+  const key = char===undefined?null:keyMap.get(char.toLowerCase());
+  if(key){
+    key.key.classList.add('target');
+    document.querySelector('.finger[data-finger="'+key.finger+'"]')?.classList.add('active');
+    const shift = char!==char.toLowerCase() || (lang==='ru' && char===',');
+    if(shift) keyMap.get(key.finger<4?'shiftR':'shiftL').key.classList.add('target');
+    byId('hint').textContent = names[key.finger]+(shift?' + Shift другой рукой':'');
+  } else byId('hint').textContent = '☘ Урок пройден';
+  const data = progress();
+  byId('progressLabel').textContent = 'Пройдено '+Object.keys(data.completed).length+' / '+course.lessons.length;
+  const best = data.best[lesson];
+  byId('record').textContent = best?'Рекорд урока: '+best.speed+' зн/мин · '+best.accuracy+'%':'Рекорд появится после урока';
+}
+function type(char, code){
+  if(finished!==null || [...char].length!==1) return;
+  started ??= performance.now();
+  attempts++;
+  missed = char!==phrase[pos];
+  if(missed){
+    errors++;
+    const looksWrong = (lang==='ru' && /^[a-z]$/i.test(char)) || (lang!=='ru' && /^[а-яё]$/i.test(char));
+    message(looksWrong?'Проверь раскладку: нужна '+course.layout+'.':'Попробуй ещё раз. Нажми подсвеченную клавишу.');
+  }else{
+    pos++;
+    if(pos===phrase.length){
+      finished = performance.now();
+      const data = progress();
+      const result = metrics();
+      data.completed[lesson] = true;
+      if(!data.best[lesson] || result.speed>data.best[lesson].speed ||
+        (result.speed===data.best[lesson].speed && result.accuracy>data.best[lesson].accuracy)) data.best[lesson] = result;
+      save();
+      message('Готово! Можно повторить урок'+(lesson<course.lessons.length-1?' или перейти дальше.':'.'));
+      input.disabled = true;
+      byId(lesson<course.lessons.length-1?'next':'reset').focus();
+    } else message('Набирай строку, следуя подсветке.');
+  }
+  render();
+}
+input.addEventListener('keydown',event=>{
+  if(event.isComposing || event.metaKey || event.ctrlKey || event.altKey || [...event.key].length!==1) return;
+  event.preventDefault();
+  if(!event.repeat) type(event.key);
+});
+input.addEventListener('beforeinput',event=>{
+  event.preventDefault();
+  if(event.inputType==='insertText' || event.inputType==='insertCompositionText') type(event.data ?? '');
+});
+input.addEventListener('input',()=>{ input.value=''; });
+byId('prev').onclick = ()=>begin(lesson-1,true);
+byId('next').onclick = ()=>begin(lesson+1,true);
+byId('reset').onclick = ()=>begin(lesson,true);
+setInterval(()=>{if(started!==null && finished===null) renderMetrics();},250);
+begin(progress().lesson);
+</script>
+</html>
