@@ -11,8 +11,8 @@ main{max-width:1120px;margin:auto;padding:28px 24px 48px}header,.bar,.section-to
 .hero{position:relative;overflow:hidden;margin:24px 0 18px;padding:26px 30px;background:#dcefd9;border:1px solid #d1e6ce;border-radius:24px}.hero h1{font:700 clamp(35px,6vw,55px)/1.05 Georgia,serif;margin:0 0 8px}.hero p{margin:0;color:var(--muted);max-width:75%;position:relative}.bunny{position:absolute;right:5%;bottom:3px;font-size:clamp(48px,9vw,105px);line-height:1;transform:rotate(9deg)}
 .card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 5px 18px #24452e08}.layout{display:grid;grid-template-columns:minmax(0,1fr) 255px;gap:16px;margin-top:14px}.side{align-self:start}.side h2,.card h2{font-size:19px;margin:0}.muted{color:var(--muted)}.small{font-size:14px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.stat{background:#edf5e9;border-radius:12px;padding:9px 10px}.stat strong{display:block;font-size:23px}.stat span{font-size:13px;color:var(--muted)}
 .practice{position:relative;background:#f4f8ef;border:1px solid #dce9d9;border-radius:14px;padding:14px;cursor:text}.practice:focus-within{border-color:#6b9b71;box-shadow:0 0 0 2px #d5e8d0}.prompt{font:600 clamp(20px,3vw,27px)/1.65 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;color:#45634e}.word{display:inline-block}.done{color:#42784b}.current{background:#d2e8c7;border-bottom:2px solid #34704e;border-radius:3px;color:#183d27}.wrong{background:#ffdcd4;color:#923021}.practice textarea{position:absolute;inset:0;width:100%;height:100%;opacity:0;resize:none;cursor:text}.action{margin-top:12px}.track{height:5px;margin-top:12px;border-radius:10px;background:#e4eddf;overflow:hidden}.track div{height:100%;background:#589161;width:0}.keys{margin:12px 0}.row{display:flex;justify-content:center;gap:4px;margin:4px 0}.key{display:grid;place-items:center;position:relative;width:7%;min-width:0;aspect-ratio:1.08;border:1px solid #dae7d9;border-bottom-width:3px;border-radius:7px;background:#f3f7f1;font-weight:700;font-size:clamp(11px,2vw,16px)}.key.home,.finger{background:var(--finger)}.key.target,.finger.active{outline:2px solid #214f37;outline-offset:1px;background:var(--finger);color:#102e1c}.key.mark::after{content:'';position:absolute;bottom:3px;width:25%;height:2px;background:currentColor;opacity:.55}.key.space{width:36%;aspect-ratio:auto;height:30px}.key.shift{width:11%;aspect-ratio:auto}.hint{justify-content:flex-start;min-height:28px;margin-top:8px}
-.hands{display:flex;gap:12px;justify-content:center;margin:15px 0 5px}.hand{display:flex;align-items:end;gap:3px;border-bottom:15px solid #e4eee0;border-radius:0 0 29px 29px;padding:0 3px 3px}.finger{width:20px;height:var(--height);border-radius:11px 11px 5px 5px;display:grid;place-items:center;font:700 12px ui-monospace,monospace}.hand-labels{display:flex;justify-content:space-around;font-size:13px;color:var(--muted)}.side p{line-height:1.5}.side .hint{font-weight:700;color:var(--dark)}.side small{display:block;color:var(--muted);line-height:1.45}.record{border-top:1px solid var(--line);padding-top:12px;margin-bottom:0}
-@media(max-width:760px){.layout{grid-template-columns:1fr}.side{grid-row:2}.side .hands{justify-content:center}.hand-labels{max-width:225px;margin:auto}main{padding:14px 12px 28px}.hero{padding:20px}.card{padding:13px}}
+.layout{display:block}.typing-guide{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}.typing-guide .section-top{gap:6px}.typing-guide p{margin:6px 0}.keys{max-width:650px;margin:12px auto 0}.hands{display:flex;justify-content:center;gap:clamp(22px,8vw,95px);margin:12px auto 0}.hand-group{text-align:center}.hand{position:relative;display:flex;align-items:end;gap:3px;padding:0 5px 20px;isolation:isolate}.hand::before{content:'';position:absolute;z-index:-1;left:0;right:0;bottom:0;height:37px;border-radius:12px 12px 23px 23px;background:#e1edda;border:1px solid #d1e1ca}.finger{position:relative;width:clamp(18px,5vw,29px);height:var(--height);border-radius:15px 15px 5px 5px;display:grid;place-items:start center;padding-top:6px;border:1px solid #203c3024;font:700 13px ui-monospace,monospace}.finger.thumb{width:clamp(19px,5vw,26px);height:31px;align-self:end;transform:rotate(22deg);margin-left:3px}.hand-group:nth-child(2) .thumb{transform:rotate(-22deg);margin-left:0;margin-right:3px}.hand-label{display:block;font-size:13px;color:var(--muted);margin-top:4px}.typing-guide .hint{font-weight:750;color:var(--dark);background:#edf5e9;padding:7px 12px;border-radius:9px}.record{font-size:14px;color:var(--muted)}
+@media(max-width:760px){main{padding:14px 12px 28px}.hero{padding:20px}.card{padding:13px}.key{border-radius:4px}.row{gap:3px}}
 </style>
 <main>
 <header><div class="brand"><span aria-hidden="true">☘</span>Клевер</div><div class="langs" id="languages" role="group" aria-label="Язык уроков"></div></header>
@@ -26,15 +26,21 @@ main{max-width:1120px;margin:auto;padding:28px 24px 48px}header,.bar,.section-to
 <div class="track" aria-hidden="true"><div id="fill"></div></div>
 <div class="action"><button id="prev">Назад</button><button id="reset">↻ Повторить</button><button id="next" class="primary">Дальше</button></div>
 <p class="small muted" id="status" role="status"></p>
+<section class="typing-guide" aria-labelledby="guide-title">
+<div class="section-top"><h2 id="guide-title">Куда ставить пальцы</h2><span class="small muted" id="rest"></span></div>
+<div class="hint" id="hint"></div>
 <div class="keys" id="keys" aria-hidden="true"></div>
+<div class="hands" id="hands" aria-hidden="true"></div>
+<p class="small muted">Поставь пальцы на клавиши их цвета. На клавишах под указательными пальцами есть бугорки. После нажатия верни палец на исходную клавишу.</p>
+<p class="record" id="record"></p>
 </section>
-<aside class="card side"><h2>Куда ставить пальцы</h2><p class="small muted" id="rest"></p><div class="hands" id="hands" aria-hidden="true"></div><div class="hand-labels"><span>Левая</span><span>Правая</span></div><div class="hint" id="hint"></div><small>После нажатия возвращай палец на исходную клавишу. Пробел нажимай большим пальцем.</small><p class="record small" id="record"></p></aside>
+</section>
 </div>
 </main>
 <script>
 'use strict';
 const courses = {
-  ru: {name:'Русский', layout:'ЙЦУКЕН', top:'йцукенгшщзхъ', home:'фывапролджэ', bottom:'ячсмитьбю.', extra:'ё', lessons:[
+  ru: {name:'Русский', layout:'ЙЦУКЕН', top:'йцукенгшщзхъ', home:'фывапролджэ', bottom:'ячсмитьбю.', groups:['фы','вл','дж','пр','э','йц','ук','ен','гш','щз','хъ','яч','см','ит','ьб','юё'], lessons:[
     ['А и О','ао ао ооа ааао аоа оаа оа ао'],
     ['Добавляем К','акак как ока аок око кака как ока'],
     ['Домашний ряд','фыва олдж ва ол фы дж авы ждо пол ров'],
@@ -44,7 +50,7 @@ const courses = {
     ['Утро в саду','Утром я вышел в сад. Под кустом сидел белый кролик, а на клевере блестела роса.'],
     ['Лесная тропинка','Мы шли по лесной тропе. Ветер шевелил листья, и над травой порхали бабочки.']
   ]},
-  en: {name:'English', layout:'QWERTY', top:'qwertyuiop[]', home:"asdfghjkl;'", bottom:'zxcvbnm,./', lessons:[
+  en: {name:'English', layout:'QWERTY', top:'qwertyuiop[]', home:"asdfghjkl;'", bottom:'zxcvbnm,./', groups:['as','gh','l','qw','er','ty','ui','op','zx','cv','bn','m'], lessons:[
     ['F и J','fj fj jjf fffj fjf jff jf fj'],
     ['Добавляем D и K','fd jk df kj fdk jkd kjf dfj'],
     ['Домашний ряд','asdf jkl; as df jk l; gh fj dk sl'],
@@ -54,7 +60,7 @@ const courses = {
     ['A quiet morning','A little rabbit sat in the garden. The clover was wet, and the sun felt warm.'],
     ['The forest path','We walked along the forest path. A soft breeze moved the leaves, and birds sang above us.']
   ]},
-  de: {name:'Deutsch', layout:'QWERTZ', top:'qwertzuiopü+', home:'asdfghjklöä#', bottom:'yxcvbnm,.-', extra:'ß', lessons:[
+  de: {name:'Deutsch', layout:'QWERTZ', top:'qwertzuiopü+', home:'asdfghjklöä#', bottom:'yxcvbnm,.-', groups:['as','gh','lö','ä','qw','er','tz','ui','op','üß','yx','cv','bn','m'], lessons:[
     ['F и J','fj fj jjf fffj fjf jff jf fj'],
     ['Добавляем D и K','fd jk df kj fdk jkd kjf dfj'],
     ['Домашний ряд','asdf jklö ä as df jk lö gh fj dk'],
@@ -65,9 +71,34 @@ const courses = {
     ['Der Waldweg','Wir gehen durch den Wald. Der Wind bewegt die Blätter, und die Vögel singen.']
   ]}
 };
-const stages = [['Буквы',0],['Слова',4],['Тексты',6]];
+// Keep the two opening drills, then practice each new key alone and with familiar keys.
+for (const course of Object.values(courses)) {
+  const [first, second, homeReview, rowReview, ...reading] = course.lessons;
+  const homeGroups = course.groups.slice(0, course.groups.indexOf(course.top.slice(0,2)));
+  const upperAndLower = course.groups.slice(homeGroups.length);
+  let familiar = [...new Set((first[1] + second[1]).replaceAll(' ',''))];
+  function drill(group) {
+    const fresh = [...group].filter(char=>!familiar.includes(char));
+    const words = [];
+    for (const char of fresh) {
+      const neighbor = familiar.at(-1);
+      words.push(char.repeat(3), char+neighbor+char+neighbor, neighbor+char+char+neighbor);
+      familiar.push(char);
+    }
+    if (fresh.length===2) words.push(fresh.join('').repeat(2),fresh.slice().reverse().join('').repeat(2));
+    const label = fresh.map(char=>char==='ß'?'ß':char.toUpperCase()).join(' и ');
+    return [(fresh.length===1?'Новая буква · ':'Новые буквы · ')+label,words.join(' ')];
+  }
+  const homeDrills = homeGroups.map(drill);
+  const otherDrills = upperAndLower.map(drill);
+  const homeIndex = 2 + homeDrills.length;
+  const rowIndex = homeIndex + 1 + otherDrills.length;
+  course.lessons = [first, second, ...homeDrills, homeReview, ...otherDrills, rowReview, ...reading];
+  course.stages = [['Буквы',0],['Слова',rowIndex+1],['Тексты',rowIndex+3]];
+  course.oldIndexes = [0,1,homeIndex,rowIndex,rowIndex+1,rowIndex+2,rowIndex+3,rowIndex+4];
+}
 const colors = ['#ebd8ef','#f5dbce','#fae9b5','#cde7ba','#bfe4d2','#cde1f4','#e2d9f5','#f4d8e5','#e6ecdc'];
-const heights = [34,45,53,47,47,53,45,34];
+const heights = [38,51,59,52,52,59,51,38];
 const names = ['Левый мизинец','Левый безымянный','Левый средний','Левый указательный','Правый указательный','Правый средний','Правый безымянный','Правый мизинец','Большой палец'];
 const columnFinger = [0,1,2,3,3,4,4,5,6,7,7,7];
 const homeColumns = [0,1,2,3,6,7,8,9];
@@ -76,6 +107,19 @@ const input = byId('typing');
 let saved = {};
 try { saved = JSON.parse(localStorage.getItem('clover-typing-v1')) || {}; } catch {}
 let lang = Object.hasOwn(courses,saved.lang) ? saved.lang : 'ru';
+if (saved.version !== 2) {
+  for (const [language, course] of Object.entries(courses)) {
+    const previous = saved[language];
+    if (!previous) continue;
+    const remap = values=>Object.fromEntries(Object.entries(values).map(([index,value])=>[course.oldIndexes[index],value]));
+    saved[language] = {
+      lesson: previous.lesson<2 ? previous.lesson : 2,
+      completed: remap(previous.completed),
+      best: remap(previous.best)
+    };
+  }
+  saved.version = 2;
+}
 let lesson, course, phrase, pos, attempts, errors, started, finished, missed, keyMap;
 function progress(){
   saved[lang] ??= {lesson:0, completed:{}, best:{}};
@@ -110,9 +154,13 @@ function keyboard(){
   keyMap = new Map();
   const keyboard = byId('keys');
   keyboard.replaceChildren();
+  const numbers = element('div','row','');
+  if(lang==='ru') addKey(numbers,'ё',0);
+  [...'1234567890'].forEach((char,index)=>addKey(numbers,char,columnFinger[index]));
+  if(lang==='de') addKey(numbers,'ß',7,'','ß');
+  keyboard.append(numbers);
   for (const [name, letters] of [['top',course.top],['home',course.home],['bottom',course.bottom]]) {
     const row = element('div','row','');
-    if (name==='top' && lang==='ru') addKey(row,'ё',0);
     if (name==='bottom') addKey(row,'shiftL',0,'shift','⇧');
     [...letters].forEach((char,index)=>{
       const home = name==='home' && homeColumns.includes(index);
@@ -120,7 +168,6 @@ function keyboard(){
       const finger = lang==='ru' && char==='.' ? 7 : columnFinger[index];
       addKey(row,char,finger,(home?'home ':'')+(mark?'mark':''));
     });
-    if (name==='top' && lang==='de') addKey(row,'ß',7);
     if (name==='bottom') addKey(row,'shiftR',7,'shift','⇧');
     keyboard.append(row);
   }
@@ -136,16 +183,18 @@ function keyboard(){
   keyboard.append(row);
   const hands = byId('hands');
   hands.replaceChildren();
-  for(const indexes of [[0,1,2,3],[4,5,6,7]]){
+  for(const [label,indexes] of [['Левая рука',[0,1,2,3,8]],['Правая рука',[8,4,5,6,7]]]){
+    const group = element('div','hand-group','');
     const hand = element('div','hand','');
     for (const index of indexes){
-      const finger = element('span','finger',course.home[homeColumns[index]].toUpperCase());
+      const finger = element('span',index===8?'finger thumb':'finger',index===8?'␣':course.home[homeColumns[index]].toUpperCase());
       finger.dataset.finger = index;
       finger.style.setProperty('--finger',colors[index]);
       finger.style.setProperty('--height',heights[index]+'px');
       hand.append(finger);
     }
-    hands.append(hand);
+    group.append(hand,element('span','hand-label',label));
+    hands.append(group);
   }
 }
 function begin(index,focus=false){
@@ -171,7 +220,7 @@ function begin(index,focus=false){
     lang = value;
     begin(progress().lesson,true);
   });
-  toggleButtons('levels',stages,lesson>=6?6:lesson>=4?4:0,value=>begin(value,true));
+  toggleButtons('levels',course.stages,course.stages.findLast(([,index])=>index<=lesson)[1],value=>begin(value,true));
   keyboard();
   message('Выбери раскладку '+course.layout+' и кликни по строке. Замер начнётся с первого нажатия.');
   render();
@@ -210,17 +259,22 @@ function render(){
   const key = char===undefined?null:keyMap.get(char.toLowerCase());
   if(key){
     key.key.classList.add('target');
-    document.querySelector('.finger[data-finger="'+key.finger+'"]')?.classList.add('active');
+    const highlight = index=>document.querySelectorAll('.finger[data-finger="'+index+'"]').forEach(item=>item.classList.add('active'));
+    highlight(key.finger);
     const shift = char!==char.toLowerCase() || (lang==='ru' && char===',');
-    if(shift) keyMap.get(key.finger<4?'shiftR':'shiftL').key.classList.add('target');
-    byId('hint').textContent = names[key.finger]+(shift?' + Shift другой рукой':'');
+    if(shift) {
+      const shiftKey = keyMap.get(key.finger<4?'shiftR':'shiftL');
+      shiftKey.key.classList.add('target');
+      highlight(shiftKey.finger);
+    }
+    byId('hint').textContent = (char===' '?'Пробел':char==='ß'?'ß':char.toUpperCase())+' · '+names[key.finger]+(shift?' + Shift другой рукой':'');
   } else byId('hint').textContent = '☘ Урок пройден';
   const data = progress();
   byId('progressLabel').textContent = 'Пройдено '+Object.keys(data.completed).length+' / '+course.lessons.length;
   const best = data.best[lesson];
   byId('record').textContent = best?'Рекорд урока: '+best.speed+' зн/мин · '+best.accuracy+'%':'Рекорд появится после урока';
 }
-function type(char, code){
+function type(char){
   if(finished!==null || [...char].length!==1) return;
   started ??= performance.now();
   attempts++;
