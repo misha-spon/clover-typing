@@ -10,8 +10,8 @@ main{max-width:1120px;margin:auto;padding:28px 24px 48px}header,.bar,.section-to
 .langs,.levels{display:flex;gap:5px;flex-wrap:wrap}.langs{background:#e0eddd;padding:4px;border-radius:14px}button{border:1px solid var(--line);background:var(--paper);border-radius:10px;padding:8px 13px;font-weight:650}.langs button{border:0;background:transparent}button[aria-pressed=true],button.primary{background:var(--dark);color:white;border-color:var(--dark)}button:disabled{opacity:.45;cursor:default}
 .hero{position:relative;overflow:hidden;margin:24px 0 18px;padding:26px 30px;background:#dcefd9;border:1px solid #d1e6ce;border-radius:24px}.hero h1{font:700 clamp(35px,6vw,55px)/1.05 Georgia,serif;margin:0 0 8px}.hero p{margin:0;color:var(--muted);max-width:75%;position:relative}.bunny{position:absolute;right:5%;bottom:3px;font-size:clamp(48px,9vw,105px);line-height:1;transform:rotate(9deg)}
 .card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 5px 18px #24452e08}.layout{display:grid;grid-template-columns:minmax(0,1fr) 255px;gap:16px;margin-top:14px}.side{align-self:start}.side h2,.card h2{font-size:19px;margin:0}.muted{color:var(--muted)}.small{font-size:14px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.stat{background:#edf5e9;border-radius:12px;padding:9px 10px}.stat strong{display:block;font-size:23px}.stat span{font-size:13px;color:var(--muted)}
-.practice{position:relative;background:#f4f8ef;border:1px solid #dce9d9;border-radius:14px;padding:14px;cursor:text}.practice:focus-within{border-color:#6b9b71;box-shadow:0 0 0 2px #d5e8d0}.prompt{font:600 clamp(20px,3vw,27px)/1.65 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;color:#45634e}.word{display:inline-block}.done{color:#42784b}.current{background:#d2e8c7;border-bottom:2px solid #34704e;border-radius:3px;color:#183d27}.wrong{background:#ffdcd4;color:#923021}.practice textarea{position:absolute;inset:0;width:100%;height:100%;opacity:0;resize:none;cursor:text}.action{margin-top:12px}.track{height:5px;margin-top:12px;border-radius:10px;background:#e4eddf;overflow:hidden}.track div{height:100%;background:#589161;width:0}.keys{margin:12px 0}.row{display:flex;justify-content:center;gap:4px;margin:4px 0}.key{display:grid;place-items:center;position:relative;width:7%;min-width:0;aspect-ratio:1.08;border:1px solid #dae7d9;border-bottom-width:3px;border-radius:7px;background:#f3f7f1;font-weight:700;font-size:clamp(11px,2vw,16px)}.key.home,.finger{background:var(--finger)}.key.target,.finger.active{outline:2px solid #214f37;outline-offset:1px;background:var(--finger);color:#102e1c}.key.mark::after{content:'';position:absolute;bottom:3px;width:25%;height:2px;background:currentColor;opacity:.55}.key.space{width:36%;aspect-ratio:auto;height:30px}.key.shift{width:11%;aspect-ratio:auto}.hint{justify-content:flex-start;min-height:28px;margin-top:8px}
-.layout{display:block}.typing-guide{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}.typing-guide .section-top{gap:6px}.typing-guide p{margin:6px 0}.keys{max-width:650px;margin:12px auto 0}.hands{display:flex;justify-content:center;gap:clamp(22px,8vw,95px);margin:12px auto 0}.hand-group{text-align:center}.hand{position:relative;display:flex;align-items:end;gap:3px;padding:0 5px 20px;isolation:isolate}.hand::before{content:'';position:absolute;z-index:-1;left:0;right:0;bottom:0;height:37px;border-radius:12px 12px 23px 23px;background:#e1edda;border:1px solid #d1e1ca}.finger{position:relative;width:clamp(18px,5vw,29px);height:var(--height);border-radius:15px 15px 5px 5px;display:grid;place-items:start center;padding-top:6px;border:1px solid #203c3024;font:700 13px ui-monospace,monospace}.finger.thumb{width:clamp(19px,5vw,26px);height:31px;align-self:end;transform:rotate(22deg);margin-left:3px}.hand-group:nth-child(2) .thumb{transform:rotate(-22deg);margin-left:0;margin-right:3px}.hand-label{display:block;font-size:13px;color:var(--muted);margin-top:4px}.typing-guide .hint{font-weight:750;color:var(--dark);background:#edf5e9;padding:7px 12px;border-radius:9px}.record{font-size:14px;color:var(--muted)}
+.practice{position:relative;background:#f4f8ef;border:1px solid #dce9d9;border-radius:14px;padding:14px;cursor:text}.practice:focus-within{border-color:#6b9b71;box-shadow:0 0 0 2px #d5e8d0}.prompt{font:600 clamp(20px,3vw,27px)/1.65 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;color:#45634e}.word{display:inline-block}.done{color:#42784b}.current{background:#d2e8c7;border-bottom:2px solid #34704e;border-radius:3px;color:#183d27}.wrong{background:#ffdcd4;color:#923021}.practice textarea{position:absolute;inset:0;width:100%;height:100%;opacity:0;resize:none;cursor:text}.action{margin-top:12px}.track{height:5px;margin-top:12px;border-radius:10px;background:#e4eddf;overflow:hidden}.track div{height:100%;background:#589161;width:0}.keys{margin:12px 0}.row{display:flex;justify-content:center;gap:4px;margin:4px 0}.key{display:grid;place-items:center;position:relative;width:7%;min-width:0;aspect-ratio:1.08;border:1px solid #dae7d9;border-bottom-width:3px;border-radius:7px;background:#f3f7f1;font-weight:700;font-size:clamp(11px,2vw,16px)}.key.home{background:var(--finger)}.key.target{outline:2px solid #214f37;outline-offset:1px;background:var(--finger);color:#102e1c}.key.mark::after{content:'';position:absolute;bottom:3px;width:25%;height:2px;background:currentColor;opacity:.55}.key.space{width:36%;aspect-ratio:auto;height:30px}.key.shift{width:11%;aspect-ratio:auto}.hint{justify-content:flex-start;min-height:28px;margin-top:8px}
+.layout{display:block}.typing-guide{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}.typing-guide .section-top{gap:6px}.typing-guide p{margin:6px 0}.keys{max-width:650px;margin:12px auto 0}.keyboard-visual{position:relative;max-width:650px;margin:12px auto 0;padding-bottom:38px}.keyboard-visual .keys{margin:0}.hand-overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}.typing-guide .hint{font-weight:750;color:var(--dark);background:#edf5e9;padding:7px 12px;border-radius:9px}.record{font-size:14px;color:var(--muted)}
 @media(max-width:760px){main{padding:14px 12px 28px}.hero{padding:20px}.card{padding:13px}.key{border-radius:4px}.row{gap:3px}}
 </style>
 <main>
@@ -29,8 +29,10 @@ main{max-width:1120px;margin:auto;padding:28px 24px 48px}header,.bar,.section-to
 <section class="typing-guide" aria-labelledby="guide-title">
 <div class="section-top"><h2 id="guide-title">Куда ставить пальцы</h2><span class="small muted" id="rest"></span></div>
 <div class="hint" id="hint"></div>
-<div class="keys" id="keys" aria-hidden="true"></div>
-<div class="hands" id="hands" aria-hidden="true"></div>
+<div class="keyboard-visual" id="keyboard-visual" aria-hidden="true">
+<div class="keys" id="keys"></div>
+<svg class="hand-overlay" id="hands"></svg>
+</div>
 <p class="small muted">Поставь пальцы на клавиши их цвета. На клавишах под указательными пальцами есть бугорки. После нажатия верни палец на исходную клавишу.</p>
 <p class="record" id="record"></p>
 </section>
@@ -98,7 +100,6 @@ for (const course of Object.values(courses)) {
   course.oldIndexes = [0,1,homeIndex,rowIndex,rowIndex+1,rowIndex+2,rowIndex+3,rowIndex+4];
 }
 const colors = ['#ebd8ef','#f5dbce','#fae9b5','#cde7ba','#bfe4d2','#cde1f4','#e2d9f5','#f4d8e5','#e6ecdc'];
-const heights = [38,51,59,52,52,59,51,38];
 const names = ['Левый мизинец','Левый безымянный','Левый средний','Левый указательный','Правый указательный','Правый средний','Правый безымянный','Правый мизинец','Большой палец'];
 const columnFinger = [0,1,2,3,3,4,4,5,6,7,7,7];
 const homeColumns = [0,1,2,3,6,7,8,9];
@@ -181,20 +182,62 @@ function keyboard(){
   const row = element('div','row','');
   addKey(row,' ',8,'space','Пробел');
   keyboard.append(row);
-  const hands = byId('hands');
-  hands.replaceChildren();
-  for(const [label,indexes] of [['Левая рука',[0,1,2,3,8]],['Правая рука',[8,4,5,6,7]]]){
-    const group = element('div','hand-group','');
-    const hand = element('div','hand','');
-    for (const index of indexes){
-      const finger = element('span',index===8?'finger thumb':'finger',index===8?'␣':course.home[homeColumns[index]].toUpperCase());
-      finger.dataset.finger = index;
-      finger.style.setProperty('--finger',colors[index]);
-      finger.style.setProperty('--height',heights[index]+'px');
-      hand.append(finger);
+}
+function drawHands(){
+  const overlay = byId('hands');
+  const bounds = overlay.getBoundingClientRect();
+  if (!bounds.width || !bounds.height) return;
+  overlay.setAttribute('viewBox','0 0 '+bounds.width+' '+bounds.height);
+  overlay.replaceChildren();
+  function center(key){
+    const box = key.getBoundingClientRect();
+    return {x:box.left-bounds.left+box.width/2, y:box.top-bounds.top+box.height/2};
+  }
+  function path(d, fill, stroke, width){
+    const shape = document.createElementNS('http://www.w3.org/2000/svg','path');
+    for (const [name,value] of Object.entries({d,fill,stroke,'stroke-width':width,'stroke-linecap':'round','stroke-linejoin':'round'})) {
+      shape.setAttribute(name,value);
     }
-    group.append(hand,element('span','hand-label',label));
-    hands.append(group);
+    overlay.append(shape);
+  }
+  const space = center(keyMap.get(' ').key);
+  const unit = keyMap.get(course.home[3]).key.getBoundingClientRect().width;
+  const current = phrase[pos];
+  const target = current===undefined ? null : keyMap.get(current.toLowerCase());
+  const shift = target && (current!==current.toLowerCase() || (lang==='ru' && current===','))
+    ? keyMap.get(target.finger<4?'shiftR':'shiftL')
+    : null;
+  for (const [direction,indexes] of [[1,[0,1,2,3]],[-1,[7,6,5,4]]]){
+    const homes = indexes.map(index=>center(keyMap.get(course.home[homeColumns[index]]).key));
+    const outer = homes[0].x;
+    const inner = homes[3].x;
+    const elbowY = space.y + 3;
+    const wristY = bounds.height - 5;
+    path(
+      'M '+(outer-direction*unit*.29)+' '+elbowY+
+      ' Q '+(outer-direction*unit*.28)+' '+(wristY-13)+' '+(outer+direction*unit*.45)+' '+wristY+
+      ' L '+(inner-direction*unit*.28)+' '+wristY+
+      ' Q '+(inner+direction*unit*.62)+' '+(wristY-4)+' '+(inner+direction*unit*.5)+' '+elbowY+
+      ' Q '+(inner-direction*unit*.8)+' '+(elbowY-23)+' '+(outer-direction*unit*.29)+' '+elbowY+' Z',
+      '#f8f2d794','#335e4480',1.4
+    );
+    function finger(fromX, fromY, destination, active, thumb=false){
+      const bendX = thumb ? fromX+direction*unit*.6 : fromX;
+      const bendY = fromY-(thumb?5:unit*.7);
+      const route = 'M '+fromX+' '+fromY+' Q '+bendX+' '+bendY+' '+destination.x+' '+destination.y;
+      const width = Math.max(8,unit*(thumb?.47:.43));
+      path(route,'none',active?'#184d36c9':'#31584185',width+2.4);
+      path(route,'none',active?'#7fbd8da0':'#fbf4dbae',width);
+    }
+    function drawFinger(index){
+      const position = indexes.indexOf(index);
+      const home = homes[position];
+      const activeKey = target?.finger===index ? target : shift?.finger===index ? shift : null;
+      finger(home.x+direction*unit*.12,elbowY,activeKey?center(activeKey.key):home,Boolean(activeKey));
+    }
+    indexes.filter(index=>target?.finger!==index && shift?.finger!==index).forEach(drawFinger);
+    finger(inner+direction*unit*.22,wristY-8,{x:space.x-direction*unit*.43,y:space.y},target?.finger===8,true);
+    indexes.filter(index=>target?.finger===index || shift?.finger===index).forEach(drawFinger);
   }
 }
 function begin(index,focus=false){
@@ -254,21 +297,18 @@ function render(){
   prompt.append(word);
   byId('fill').style.width = (100*pos/phrase.length)+'%';
   for(const item of keyMap.values()) item.key.classList.remove('target');
-  document.querySelectorAll('.finger.active').forEach(item=>item.classList.remove('active'));
   const char = phrase[pos];
   const key = char===undefined?null:keyMap.get(char.toLowerCase());
   if(key){
     key.key.classList.add('target');
-    const highlight = index=>document.querySelectorAll('.finger[data-finger="'+index+'"]').forEach(item=>item.classList.add('active'));
-    highlight(key.finger);
     const shift = char!==char.toLowerCase() || (lang==='ru' && char===',');
     if(shift) {
       const shiftKey = keyMap.get(key.finger<4?'shiftR':'shiftL');
       shiftKey.key.classList.add('target');
-      highlight(shiftKey.finger);
     }
     byId('hint').textContent = (char===' '?'Пробел':char==='ß'?'ß':char.toUpperCase())+' · '+names[key.finger]+(shift?' + Shift другой рукой':'');
   } else byId('hint').textContent = '☘ Урок пройден';
+  drawHands();
   const data = progress();
   byId('progressLabel').textContent = 'Пройдено '+Object.keys(data.completed).length+' / '+course.lessons.length;
   const best = data.best[lesson];
@@ -315,5 +355,6 @@ byId('next').onclick = ()=>begin(lesson+1,true);
 byId('reset').onclick = ()=>begin(lesson,true);
 setInterval(()=>{if(started!==null && finished===null) renderMetrics();},250);
 begin(progress().lesson);
+new ResizeObserver(drawHands).observe(byId('keyboard-visual'));
 </script>
 </html>
