@@ -13,27 +13,29 @@ main{max-width:1120px;margin:auto;padding:28px 24px 48px}header,.bar,.section-to
 .practice{position:relative;background:#f4f8ef;border:1px solid #dce9d9;border-radius:14px;padding:14px;cursor:text}.practice:focus-within{border-color:#6b9b71;box-shadow:0 0 0 2px #d5e8d0}.prompt{font:600 clamp(20px,3vw,27px)/1.65 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;color:#45634e}.word{display:inline-block}.done{color:#42784b}.current{background:#d2e8c7;border-bottom:2px solid #34704e;border-radius:3px;color:#183d27}.wrong{background:#ffdcd4;color:#923021}.practice textarea{position:absolute;inset:0;width:100%;height:100%;opacity:0;resize:none;cursor:text}.action{margin-top:12px}.track{height:5px;margin-top:12px;border-radius:10px;background:#e4eddf;overflow:hidden}.track div{height:100%;background:#589161;width:0}.keys{margin:12px 0}.row{display:flex;justify-content:center;gap:4px;margin:4px 0}.key{display:grid;place-items:center;position:relative;width:7%;min-width:0;aspect-ratio:1.08;border:1px solid #dae7d9;border-bottom-width:3px;border-radius:7px;background:#f3f7f1;font-weight:700;font-size:clamp(11px,2vw,16px)}.key.home{background:var(--finger)}.key.target{outline:2px solid #214f37;outline-offset:1px;background:var(--finger);color:#102e1c}.key.mark::after{content:'';position:absolute;bottom:3px;width:25%;height:2px;background:currentColor;opacity:.55}.key.space{width:36%;aspect-ratio:auto;height:30px}.key.shift{width:11%;aspect-ratio:auto}.hint{justify-content:flex-start;min-height:28px;margin-top:8px}
 .layout{display:block}.typing-guide{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}.typing-guide .section-top{gap:6px}.typing-guide p{margin:6px 0}.keys{max-width:650px;margin:12px auto 0}.keyboard-visual{position:relative;max-width:650px;margin:12px auto 0;padding-bottom:38px}.keyboard-visual .keys{margin:0}.hand-overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}.typing-guide .hint{font-weight:750;color:var(--dark);background:#edf5e9;padding:7px 12px;border-radius:9px}.record{font-size:14px;color:var(--muted)}
 @media(max-width:760px){main{padding:14px 12px 28px}.hero{padding:20px}.card{padding:13px}.key{border-radius:4px}.row{gap:3px}}
+.manicure{display:flex;align-items:center;gap:6px}.manicure summary{cursor:pointer;background:#edf5e9;border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-weight:650}.manicure-options{display:flex;flex-wrap:wrap;gap:5px;padding:8px 0}.manicure-options button::before{content:'';display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--swatch);border:1px solid #345a4870;margin-inline-end:6px;vertical-align:middle}
 </style>
 <main>
-<header><div class="brand"><span aria-hidden="true">☘</span>Клевер</div><div class="langs" id="languages" role="group" aria-label="Язык уроков"></div></header>
-<section class="hero"><h1>Печатай вслепую</h1><p>От первых букв до целых текстов.</p><span class="bunny" aria-hidden="true">🐰</span></section>
+<header><div class="brand"><span aria-hidden="true">☘</span><b id="brand">Клевер</b></div><div class="langs" id="languages" role="group" aria-label="Язык уроков"></div></header>
+<section class="hero"><h1 id="hero-title">Печатай вслепую</h1><p id="hero-copy">От первых букв до целых текстов.</p><span class="bunny" aria-hidden="true">🐰</span></section>
 <div class="bar"><div class="levels" id="levels" role="group" aria-label="Этап обучения"></div><span id="progressLabel" class="muted small"></span></div>
 <div class="layout">
 <section class="card">
 <div class="section-top"><h2 id="title"></h2><span id="counter" class="small muted"></span></div>
-<div class="stats"><div class="stat"><strong id="speed">0</strong><span>знаков/мин</span></div><div class="stat"><strong id="accuracy">—</strong><span>точность</span></div><div class="stat"><strong id="errors">0</strong><span>ошибок</span></div></div>
+<div class="stats"><div class="stat"><strong id="speed">0</strong><span id="speed-label">знаков/мин</span></div><div class="stat"><strong id="accuracy">—</strong><span id="accuracy-label">точность</span></div><div class="stat"><strong id="errors">0</strong><span id="errors-label">ошибок</span></div></div>
 <div class="practice"><div class="prompt" id="prompt"></div><textarea id="typing" rows="1" aria-label="Набирай показанный текст" aria-describedby="prompt status" autocomplete="off" autocapitalize="off" spellcheck="false"></textarea></div>
 <div class="track" aria-hidden="true"><div id="fill"></div></div>
 <div class="action"><button id="prev">Назад</button><button id="reset">↻ Повторить</button><button id="next" class="primary">Дальше</button></div>
 <p class="small muted" id="status" role="status"></p>
 <section class="typing-guide" aria-labelledby="guide-title">
 <div class="section-top"><h2 id="guide-title">Куда ставить пальцы</h2><span class="small muted" id="rest"></span></div>
+<details class="manicure"><summary id="manicure-label">Маникюр</summary><div class="manicure-options" id="manicure-options" role="group" aria-labelledby="manicure-label"></div></details>
 <div class="hint" id="hint"></div>
 <div class="keyboard-visual" id="keyboard-visual" aria-hidden="true">
 <div class="keys" id="keys"></div>
 <svg class="hand-overlay" id="hands"></svg>
 </div>
-<p class="small muted">Поставь пальцы на клавиши их цвета. На клавишах под указательными пальцами есть бугорки. После нажатия верни палец на исходную клавишу.</p>
+<p class="small muted" id="guide-copy">Поставь пальцы на клавиши их цвета. На клавишах под указательными пальцами есть бугорки. После нажатия верни палец на исходную клавишу.</p>
 <p class="record" id="record"></p>
 </section>
 </section>
@@ -53,28 +55,85 @@ const courses = {
     ['Лесная тропинка','Мы шли по лесной тропе. Ветер шевелил листья, и над травой порхали бабочки.']
   ]},
   en: {name:'English', layout:'QWERTY', top:'qwertyuiop[]', home:"asdfghjkl;'", bottom:'zxcvbnm,./', groups:['as','gh','l','qw','er','ty','ui','op','zx','cv','bn','m'], lessons:[
-    ['F и J','fj fj jjf fffj fjf jff jf fj'],
-    ['Добавляем D и K','fd jk df kj fdk jkd kjf dfj'],
-    ['Домашний ряд','asdf jkl; as df jk l; gh fj dk sl'],
-    ['Верхний и нижний ряды','qw er ty ui op zx cv bn m qz wp'],
-    ['Короткие слова','sad dad add ask lad fall hall flask'],
-    ['Слова подлиннее','clover rabbit garden meadow leaf blossom'],
+    ['F and J','fj fj jjf fffj fjf jff jf fj'],
+    ['Adding D and K','fd jk df kj fdk jkd kjf dfj'],
+    ['Home row','asdf jkl; as df jk l; gh fj dk sl'],
+    ['Top and bottom rows','qw er ty ui op zx cv bn m qz wp'],
+    ['Short words','sad dad add ask lad fall hall flask'],
+    ['Longer words','clover rabbit garden meadow leaf blossom'],
     ['A quiet morning','A little rabbit sat in the garden. The clover was wet, and the sun felt warm.'],
     ['The forest path','We walked along the forest path. A soft breeze moved the leaves, and birds sang above us.']
   ]},
   de: {name:'Deutsch', layout:'QWERTZ', top:'qwertzuiopü+', home:'asdfghjklöä#', bottom:'yxcvbnm,.-', groups:['as','gh','lö','ä','qw','er','tz','ui','op','üß','yx','cv','bn','m'], lessons:[
-    ['F и J','fj fj jjf fffj fjf jff jf fj'],
-    ['Добавляем D и K','fd jk df kj fdk jkd kjf dfj'],
-    ['Домашний ряд','asdf jklö ä as df jk lö gh fj dk'],
-    ['Верхний и нижний ряды','qw er tz ui op üß yx cv bn m'],
-    ['Короткие слова','das der die mit und auf grün süß schön'],
-    ['Слова подлиннее','Klee Hase Garten Wiese Blätter Blüte'],
+    ['F und J','fj fj jjf fffj fjf jff jf fj'],
+    ['D und K kommen dazu','fd jk df kj fdk jkd kjf dfj'],
+    ['Grundreihe','asdf jklö ä as df jk lö gh fj dk'],
+    ['Obere und untere Reihe','qw er tz ui op üß yx cv bn m'],
+    ['Kurze Wörter','das der die mit und auf grün süß schön'],
+    ['Längere Wörter','Klee Hase Garten Wiese Blätter Blüte'],
     ['Im Garten','Ein kleiner Hase sitzt im Garten. Der Klee ist nass, und die Sonne wärmt die Wiese.'],
     ['Der Waldweg','Wir gehen durch den Wald. Der Wind bewegt die Blätter, und die Vögel singen.']
   ]}
 };
+const polish = {
+  natural:'#eed5bb', sage:'#80ac84', pink:'#d987a3', lilac:'#a795cf', cherry:'#ad5764'
+};
+const translations = {
+  ru: {
+    brand:'Клевер', pageTitle:'Клевер — тренажёр печати', hero:'Печатай вслепую', intro:'От первых букв до целых текстов.',
+    language:'Язык уроков', levels:'Этап обучения', stages:['Буквы','Слова','Тексты'],
+    speed:'знаков/мин', accuracy:'точность', errors:'ошибок', input:'Набирай показанный текст',
+    back:'Назад', repeat:'Повторить', next:'Дальше', hands:'Куда ставить пальцы', manicure:'Маникюр',
+    polish:['Без покрытия','Шалфей','Розовый','Сирень','Вишня'],
+    guide:'На клавишах под указательными пальцами есть бугорки. После нажатия верни палец на исходную клавишу.',
+    home:'Исходный ряд', space:'Пробел', shift:'Shift другой рукой',
+    fingers:['Левый мизинец','Левый безымянный','Левый средний','Левый указательный','Правый указательный','Правый средний','Правый безымянный','Правый мизинец','Большой палец'],
+    newLetter:'Новая буква', newLetters:'Новые буквы', and:' и ',
+    count:(at,total)=>'Урок '+at+' из '+total, progress:(done,total)=>'Пройдено '+done+' / '+total,
+    ready:layout=>'Выбери раскладку '+layout+' и кликни по строке. Замер начнётся с первого нажатия.',
+    wrongLayout:layout=>'Проверь раскладку: нужна '+layout+'.', wrongKey:'Попробуй ещё раз. Нажми подсвеченную клавишу.',
+    typing:'Набирай строку, следуя подсветке.', complete:'Урок пройден',
+    done:more=>more?'Готово! Можно повторить урок или перейти дальше.':'Готово! Можно повторить урок.',
+    best:(speed,accuracy)=>'Рекорд урока: '+speed+' зн/мин · '+accuracy+'%', noBest:'Рекорд появится после урока'
+  },
+  en: {
+    brand:'Clover', pageTitle:'Clover — typing tutor', hero:'Learn touch typing', intro:'From your first keystrokes to full passages.',
+    language:'Lesson language', levels:'Practice stage', stages:['Letters','Words','Passages'],
+    speed:'chars/min', accuracy:'accuracy', errors:'errors', input:'Type the text shown',
+    back:'Back', repeat:'Retry', next:'Next', hands:'Where to place your fingers', manicure:'Manicure',
+    polish:['Bare nails','Sage','Pink','Lilac','Cherry'],
+    guide:'Feel for the bumps under your index fingers. After each keystroke, return your finger to its home key.',
+    home:'Home row', space:'Space', shift:'Shift with the other hand',
+    fingers:['Left pinky','Left ring finger','Left middle finger','Left index finger','Right index finger','Right middle finger','Right ring finger','Right pinky','Thumb'],
+    newLetter:'New letter', newLetters:'New letters', and:' and ',
+    count:(at,total)=>'Lesson '+at+' of '+total, progress:(done,total)=>'Completed '+done+' / '+total,
+    ready:layout=>'Switch to '+layout+' and click the text. The timer starts with your first keystroke.',
+    wrongLayout:layout=>'Check your keyboard layout. Use '+layout+'.', wrongKey:'Try again. Press the highlighted key.',
+    typing:'Follow the highlighted keys as you type.', complete:'Lesson complete',
+    done:more=>more?'Done! Retry this lesson or move on.':'Done! You can retry this lesson.',
+    best:(speed,accuracy)=>'Personal best: '+speed+' chars/min · '+accuracy+'%', noBest:'Finish the lesson to set a personal best'
+  },
+  de: {
+    brand:'Klee', pageTitle:'Klee — Tipptrainer', hero:'Lerne blind zu tippen', intro:'Von den ersten Buchstaben bis zu ganzen Texten.',
+    language:'Unterrichtssprache', levels:'Übungsstufe', stages:['Buchstaben','Wörter','Texte'],
+    speed:'Zeichen/Min.', accuracy:'Genauigkeit', errors:'Fehler', input:'Tippe den angezeigten Text',
+    back:'Zurück', repeat:'Wiederholen', next:'Weiter', hands:'Wohin mit den Fingern?', manicure:'Maniküre',
+    polish:['Ohne Lack','Salbei','Rosa','Flieder','Kirsche'],
+    guide:'Ertaste die Erhebungen unter den Zeigefingern. Führe nach jedem Anschlag den Finger zur Ausgangstaste zurück.',
+    home:'Grundreihe', space:'Leertaste', shift:'Umschalttaste mit der anderen Hand',
+    fingers:['Linker kleiner Finger','Linker Ringfinger','Linker Mittelfinger','Linker Zeigefinger','Rechter Zeigefinger','Rechter Mittelfinger','Rechter Ringfinger','Rechter kleiner Finger','Daumen'],
+    newLetter:'Neuer Buchstabe', newLetters:'Neue Buchstaben', and:' und ',
+    count:(at,total)=>'Lektion '+at+' von '+total, progress:(done,total)=>'Abgeschlossen '+done+' / '+total,
+    ready:layout=>'Wechsle zum Layout '+layout+' und klicke auf den Text. Die Zeitmessung beginnt mit dem ersten Anschlag.',
+    wrongLayout:layout=>'Prüfe das Tastaturlayout. Verwende '+layout+'.', wrongKey:'Versuch es noch einmal. Drücke die markierte Taste.',
+    typing:'Folge beim Tippen den markierten Tasten.', complete:'Lektion abgeschlossen',
+    done:more=>more?'Fertig! Du kannst die Lektion wiederholen oder weitermachen.':'Fertig! Du kannst die Lektion wiederholen.',
+    best:(speed,accuracy)=>'Bestleistung: '+speed+' Zeichen/Min. · '+accuracy+'%', noBest:'Schließe die Lektion ab, um eine Bestleistung zu speichern'
+  }
+};
 // Keep the two opening drills, then practice each new key alone and with familiar keys.
-for (const course of Object.values(courses)) {
+for (const [language, course] of Object.entries(courses)) {
+  const ui = translations[language];
   const [first, second, homeReview, rowReview, ...reading] = course.lessons;
   const homeGroups = course.groups.slice(0, course.groups.indexOf(course.top.slice(0,2)));
   const upperAndLower = course.groups.slice(homeGroups.length);
@@ -88,19 +147,18 @@ for (const course of Object.values(courses)) {
       familiar.push(char);
     }
     if (fresh.length===2) words.push(fresh.join('').repeat(2),fresh.slice().reverse().join('').repeat(2));
-    const label = fresh.map(char=>char==='ß'?'ß':char.toUpperCase()).join(' и ');
-    return [(fresh.length===1?'Новая буква · ':'Новые буквы · ')+label,words.join(' ')];
+    const label = fresh.map(char=>char==='ß'?'ß':char.toUpperCase()).join(ui.and);
+    return [(fresh.length===1?ui.newLetter:ui.newLetters)+' · '+label,words.join(' ')];
   }
   const homeDrills = homeGroups.map(drill);
   const otherDrills = upperAndLower.map(drill);
   const homeIndex = 2 + homeDrills.length;
   const rowIndex = homeIndex + 1 + otherDrills.length;
   course.lessons = [first, second, ...homeDrills, homeReview, ...otherDrills, rowReview, ...reading];
-  course.stages = [['Буквы',0],['Слова',rowIndex+1],['Тексты',rowIndex+3]];
+  course.stages = [[ui.stages[0],0],[ui.stages[1],rowIndex+1],[ui.stages[2],rowIndex+3]];
   course.oldIndexes = [0,1,homeIndex,rowIndex,rowIndex+1,rowIndex+2,rowIndex+3,rowIndex+4];
 }
 const colors = ['#ebd8ef','#f5dbce','#fae9b5','#cde7ba','#bfe4d2','#cde1f4','#e2d9f5','#f4d8e5','#e6ecdc'];
-const names = ['Левый мизинец','Левый безымянный','Левый средний','Левый указательный','Правый указательный','Правый средний','Правый безымянный','Правый мизинец','Большой палец'];
 const columnFinger = [0,1,2,3,3,4,4,5,6,7,7,7];
 const homeColumns = [0,1,2,3,6,7,8,9];
 const byId = id => document.getElementById(id);
@@ -108,6 +166,8 @@ const input = byId('typing');
 let saved = {};
 try { saved = JSON.parse(localStorage.getItem('clover-typing-v1')) || {}; } catch {}
 let lang = Object.hasOwn(courses,saved.lang) ? saved.lang : 'ru';
+let ui = translations[lang];
+let manicure = Object.hasOwn(polish,saved.manicure) ? saved.manicure : 'natural';
 if (saved.version !== 2) {
   for (const [language, course] of Object.entries(courses)) {
     const previous = saved[language];
@@ -128,6 +188,7 @@ function progress(){
 }
 function save(){
   saved.lang = lang;
+  if(manicure!=='natural' || saved.manicure) saved.manicure = manicure;
   try { localStorage.setItem('clover-typing-v1',JSON.stringify(saved)); } catch {}
 }
 function element(tag, name, content){
@@ -180,7 +241,7 @@ function keyboard(){
     keyMap.set('.',period);
   }
   const row = element('div','row','');
-  addKey(row,' ',8,'space','Пробел');
+  addKey(row,' ',8,'space',ui.space);
   keyboard.append(row);
 }
 function drawHands(){
@@ -198,6 +259,8 @@ function drawHands(){
     for (const [name,value] of Object.entries({d,fill,stroke,'stroke-width':width,'stroke-linecap':'round','stroke-linejoin':'round'})) {
       shape.setAttribute(name,value);
     }
+    if (fill !== 'none') shape.setAttribute('fill-opacity', fill===polish[manicure] ? '.62' : '.56');
+    shape.setAttribute('stroke-opacity','.64');
     overlay.append(shape);
   }
   const space = center(keyMap.get(' ').key);
@@ -207,41 +270,101 @@ function drawHands(){
   const shift = target && (current!==current.toLowerCase() || (lang==='ru' && current===','))
     ? keyMap.get(target.finger<4?'shiftR':'shiftL')
     : null;
+  const widths = [.16,.19,.21,.20,.20,.21,.19,.16,.23];
   for (const [direction,indexes] of [[1,[0,1,2,3]],[-1,[7,6,5,4]]]){
     const homes = indexes.map(index=>center(keyMap.get(course.home[homeColumns[index]]).key));
     const outer = homes[0].x;
     const inner = homes[3].x;
-    const elbowY = space.y + 3;
+    const knuckleY = space.y - unit*.13;
     const wristY = bounds.height - 5;
     path(
-      'M '+(outer-direction*unit*.29)+' '+elbowY+
-      ' Q '+(outer-direction*unit*.28)+' '+(wristY-13)+' '+(outer+direction*unit*.45)+' '+wristY+
-      ' L '+(inner-direction*unit*.28)+' '+wristY+
-      ' Q '+(inner+direction*unit*.62)+' '+(wristY-4)+' '+(inner+direction*unit*.5)+' '+elbowY+
-      ' Q '+(inner-direction*unit*.8)+' '+(elbowY-23)+' '+(outer-direction*unit*.29)+' '+elbowY+' Z',
-      '#f8f2d794','#335e4480',1.4
+      'M '+(outer-direction*unit*.12)+' '+knuckleY+
+      ' C '+(outer-direction*unit*.23)+' '+(knuckleY+unit*.45)+' '+(outer+direction*unit*.24)+' '+(wristY-12)+' '+(outer+direction*unit*.58)+' '+wristY+
+      ' Q '+(inner-direction*unit*.8)+' '+(wristY+4)+' '+(inner-direction*unit*.45)+' '+wristY+
+      ' C '+(inner-direction*unit*.21)+' '+(wristY-11)+' '+(inner+direction*unit*.48)+' '+(knuckleY+unit*.4)+' '+(inner+direction*unit*.28)+' '+(knuckleY-unit*.09)+
+      ' Q '+(inner-direction*unit*1.24)+' '+(knuckleY-unit*.64)+' '+(outer-direction*unit*.12)+' '+knuckleY+' Z',
+      '#efd0b5','#626850',1.3
     );
     function finger(fromX, fromY, destination, active, index){
-      const thumb = index===8;
-      const bendX = thumb ? fromX+direction*unit*.6 : fromX;
-      const bendY = fromY-(thumb?5:unit*.7);
-      const route = 'M '+fromX+' '+fromY+' Q '+bendX+' '+bendY+' '+destination.x+' '+destination.y;
-      const width = Math.max(8,unit*(thumb ? .47 : .43));
-      path(route,'none',active?'#184d36c9':'#31584185',width+2.4);
-      path(route,'none',active?'#7fbd8da0':colors[index]+'ae',width);
+      const dx = destination.x-fromX;
+      const dy = destination.y-fromY;
+      const length = Math.hypot(dx,dy) || 1;
+      const ux = dx/length;
+      const uy = dy/length;
+      const radius = Math.max(3.6,unit*widths[index]);
+      const arc = direction*radius*(index===8 ? 1.05 : .48);
+      function point(at, across=0){
+        const side = across+Math.sin(Math.PI*at)*arc;
+        return (fromX+dx*at-uy*side)+' '+(fromY+dy*at+ux*side);
+      }
+      const cap = Math.min(.20,radius/length);
+      const tip = 1-cap;
+      path(
+        'M '+point(-.06,-radius)+
+        ' C '+point(.23,-radius*1.08)+' '+point(.31,-radius*.91)+' '+point(.46,-radius*.88)+
+        ' C '+point(.62,-radius*.92)+' '+point(.72,-radius*.68)+' '+point(tip,-radius*.69)+
+        ' Q '+point(1.05,-radius*.65)+' '+point(1.04,0)+
+        ' Q '+point(1.05,radius*.68)+' '+point(tip,radius*.69)+
+        ' C '+point(.72,radius*.66)+' '+point(.61,radius*.92)+' '+point(.46,radius*.88)+
+        ' C '+point(.26,radius*.98)+' '+point(.17,radius*1.12)+' '+point(-.06,radius)+' Z',
+        active?'#edcbaa':'#f5d8bd','#605943',active?1.65:1.05
+      );
+      // Keep nail beds short and rounded, following each fingertip's angle.
+      const bed = Math.max(.61,1-cap*1.85);
+      path(
+        'M '+point(bed,-radius*.41)+
+        ' Q '+point(bed-cap*.32,0)+' '+point(bed,radius*.41)+
+        ' L '+point(1-cap*.63,radius*.43)+
+        ' Q '+point(1.012,0)+' '+point(1-cap*.63,-radius*.43)+' Z',
+        polish[manicure],'#715b50',.7
+      );
+      path('M '+point(.53,-radius*.63)+' Q '+point(.58,0)+' '+point(.52,radius*.63),'none','#91664a',.8);
+      if(active) path('M '+point(.27,-radius*.68)+' Q '+point(.32,0)+' '+point(.28,radius*.68),'none','#377756',1.5);
     }
     function drawFinger(index){
       const position = indexes.indexOf(index);
       const home = homes[position];
       const activeKey = target?.finger===index ? target : shift?.finger===index ? shift : null;
-      finger(home.x+direction*unit*.12,elbowY,activeKey?center(activeKey.key):home,Boolean(activeKey),index);
+      const baseX = home.x+(1.5-position)*direction*unit*.15;
+      const baseY = knuckleY+unit*[.18,.03,-.12,-.04][position];
+      finger(baseX,baseY,activeKey?center(activeKey.key):home,Boolean(activeKey),index);
     }
     indexes.filter(index=>target?.finger!==index && shift?.finger!==index).forEach(drawFinger);
     finger(inner+direction*unit*.22,wristY-8,{x:space.x-direction*unit*.43,y:space.y},target?.finger===8,8);
     indexes.filter(index=>target?.finger===index || shift?.finger===index).forEach(drawFinger);
   }
 }
+function localize(){
+  document.documentElement.lang = lang;
+  document.title = ui.pageTitle;
+  const labels = {
+    brand:ui.brand, 'hero-title':ui.hero, 'hero-copy':ui.intro,
+    'speed-label':ui.speed, 'accuracy-label':ui.accuracy, 'errors-label':ui.errors,
+    prev:ui.back, reset:'↻ '+ui.repeat, next:ui.next, 'guide-title':ui.hands,
+    'manicure-label':ui.manicure, 'guide-copy':ui.guide
+  };
+  for (const [id,label] of Object.entries(labels)) byId(id).textContent = label;
+  for (const [id,label] of [['languages',ui.language],['levels',ui.levels],['typing',ui.input]]) {
+    byId(id).setAttribute('aria-label',label);
+  }
+  const options = Object.entries(polish).map(([value,color],index)=>{
+    const button = element('button','',ui.polish[index]);
+    button.type = 'button';
+    button.style.setProperty('--swatch',color);
+    button.setAttribute('aria-pressed',String(value===manicure));
+    button.onclick = ()=>{
+      manicure = value;
+      save();
+      options.forEach((option,i)=>option.setAttribute('aria-pressed',String(i===index)));
+      drawHands();
+    };
+    return button;
+  });
+  byId('manicure-options').replaceChildren(...options);
+}
 function begin(index,focus=false){
+  ui = translations[lang];
+  localize();
   course = courses[lang];
   lesson = Math.max(0,Math.min(course.lessons.length-1,index));
   const data = progress();
@@ -256,17 +379,17 @@ function begin(index,focus=false){
   input.lang = lang;
   byId('prompt').lang = lang;
   byId('title').textContent = course.lessons[lesson][0];
-  byId('counter').textContent = 'Урок '+(lesson+1)+' из '+course.lessons.length;
+  byId('counter').textContent = ui.count(lesson+1,course.lessons.length);
   byId('prev').disabled = lesson===0;
   byId('next').disabled = lesson===course.lessons.length-1;
-  byId('rest').textContent = 'Исходный ряд · '+homeColumns.slice(0,4).map(i=>course.home[i]).join('').toUpperCase()+' '+homeColumns.slice(4).map(i=>course.home[i]).join('').toUpperCase();
+  byId('rest').textContent = ui.home+' · '+homeColumns.slice(0,4).map(i=>course.home[i]).join('').toUpperCase()+' '+homeColumns.slice(4).map(i=>course.home[i]).join('').toUpperCase();
   toggleButtons('languages',Object.entries(courses).map(([key,value])=>[value.name,key]),lang,value=>{
     lang = value;
     begin(progress().lesson,true);
   });
   toggleButtons('levels',course.stages,course.stages.findLast(([,index])=>index<=lesson)[1],value=>begin(value,true));
   keyboard();
-  message('Выбери раскладку '+course.layout+' и кликни по строке. Замер начнётся с первого нажатия.');
+  message(ui.ready(course.layout));
   render();
   if (focus) input.focus();
 }
@@ -307,13 +430,13 @@ function render(){
       const shiftKey = keyMap.get(key.finger<4?'shiftR':'shiftL');
       shiftKey.key.classList.add('target');
     }
-    byId('hint').textContent = (char===' '?'Пробел':char==='ß'?'ß':char.toUpperCase())+' · '+names[key.finger]+(shift?' + Shift другой рукой':'');
-  } else byId('hint').textContent = '☘ Урок пройден';
+    byId('hint').textContent = (char===' '?ui.space:char==='ß'?'ß':char.toUpperCase())+' · '+ui.fingers[key.finger]+(shift?' + '+ui.shift:'');
+  } else byId('hint').textContent = '☘ '+ui.complete;
   drawHands();
   const data = progress();
-  byId('progressLabel').textContent = 'Пройдено '+Object.keys(data.completed).length+' / '+course.lessons.length;
+  byId('progressLabel').textContent = ui.progress(Object.keys(data.completed).length,course.lessons.length);
   const best = data.best[lesson];
-  byId('record').textContent = best?'Рекорд урока: '+best.speed+' зн/мин · '+best.accuracy+'%':'Рекорд появится после урока';
+  byId('record').textContent = best?ui.best(best.speed,best.accuracy):ui.noBest;
 }
 function type(char){
   if(finished!==null || [...char].length!==1) return;
@@ -323,7 +446,7 @@ function type(char){
   if(missed){
     errors++;
     const looksWrong = (lang==='ru' && /^[a-z]$/i.test(char)) || (lang!=='ru' && /^[а-яё]$/i.test(char));
-    message(looksWrong?'Проверь раскладку: нужна '+course.layout+'.':'Попробуй ещё раз. Нажми подсвеченную клавишу.');
+    message(looksWrong?ui.wrongLayout(course.layout):ui.wrongKey);
   }else{
     pos++;
     if(pos===phrase.length){
@@ -334,10 +457,10 @@ function type(char){
       if(!data.best[lesson] || result.speed>data.best[lesson].speed ||
         (result.speed===data.best[lesson].speed && result.accuracy>data.best[lesson].accuracy)) data.best[lesson] = result;
       save();
-      message('Готово! Можно повторить урок'+(lesson<course.lessons.length-1?' или перейти дальше.':'.'));
+      message(ui.done(lesson<course.lessons.length-1));
       input.disabled = true;
       byId(lesson<course.lessons.length-1?'next':'reset').focus();
-    } else message('Набирай строку, следуя подсветке.');
+    } else message(ui.typing);
   }
   render();
 }
