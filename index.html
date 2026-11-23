@@ -11,7 +11,7 @@ main{max-width:1120px;margin:auto;padding:28px 24px 48px}header,.bar,.section-to
 .hero{position:relative;overflow:hidden;margin:24px 0 18px;padding:26px 30px;background:#dcefd9;border:1px solid #d1e6ce;border-radius:24px}.hero h1{font:700 clamp(35px,6vw,55px)/1.05 Georgia,serif;margin:0 0 8px}.hero p{margin:0;color:var(--muted);max-width:75%;position:relative}.bunny{position:absolute;right:5%;bottom:3px;font-size:clamp(48px,9vw,105px);line-height:1;transform:rotate(9deg)}
 .card{background:var(--paper);border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 5px 18px #24452e08}.layout{display:grid;grid-template-columns:minmax(0,1fr) 255px;gap:16px;margin-top:14px}.side{align-self:start}.side h2,.card h2{font-size:19px;margin:0}.muted{color:var(--muted)}.small{font-size:14px}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}.stat{background:#edf5e9;border-radius:12px;padding:9px 10px}.stat strong{display:block;font-size:23px}.stat span{font-size:13px;color:var(--muted)}
 .practice{position:relative;background:#f4f8ef;border:1px solid #dce9d9;border-radius:14px;padding:14px;cursor:text}.practice:focus-within{border-color:#6b9b71;box-shadow:0 0 0 2px #d5e8d0}.prompt{font:600 clamp(20px,3vw,27px)/1.65 ui-monospace,monospace;white-space:pre-wrap;overflow-wrap:anywhere;color:#45634e}.word{display:inline-block}.done{color:#42784b}.current{background:#d2e8c7;border-bottom:2px solid #34704e;border-radius:3px;color:#183d27}.wrong{background:#ffdcd4;color:#923021}.practice textarea{position:absolute;inset:0;width:100%;height:100%;opacity:0;resize:none;cursor:text}.action{margin-top:12px}.track{height:5px;margin-top:12px;border-radius:10px;background:#e4eddf;overflow:hidden}.track div{height:100%;background:#589161;width:0}.keys{margin:12px 0}.row{display:flex;justify-content:center;gap:4px;margin:4px 0}.key{display:grid;place-items:center;position:relative;width:7%;min-width:0;aspect-ratio:1.08;border:1px solid #dae7d9;border-bottom-width:3px;border-radius:7px;background:#f3f7f1;font-weight:700;font-size:clamp(11px,2vw,16px)}.key.home{background:var(--finger)}.key.target{outline:2px solid #214f37;outline-offset:1px;background:var(--finger);color:#102e1c}.key.mark::after{content:'';position:absolute;bottom:3px;width:25%;height:2px;background:currentColor;opacity:.55}.key.space{width:36%;aspect-ratio:auto;height:30px}.key.shift{width:11%;aspect-ratio:auto}.hint{justify-content:flex-start;min-height:28px;margin-top:8px}
-.layout{display:block}.typing-guide{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}.typing-guide .section-top{gap:6px}.typing-guide p{margin:6px 0}.keys{max-width:650px;margin:12px auto 0}.keyboard-visual{position:relative;max-width:650px;margin:12px auto 0;padding-bottom:38px}.keyboard-visual .keys{margin:0}.hand-overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}.typing-guide .hint{font-weight:750;color:var(--dark);background:#edf5e9;padding:7px 12px;border-radius:9px}.record{font-size:14px;color:var(--muted)}
+.layout{display:block}.typing-guide{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}.typing-guide .section-top{gap:6px}.typing-guide p{margin:6px 0}.keys{max-width:650px;margin:12px auto 0}.keyboard-visual{position:relative;max-width:650px;margin:12px auto 0;padding-bottom:clamp(50px,9vw,84px)}.keyboard-visual .keys{margin:0}.hand-overlay{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;overflow:visible}.typing-guide .hint{font-weight:750;color:var(--dark);background:#edf5e9;padding:7px 12px;border-radius:9px}.record{font-size:14px;color:var(--muted)}
 @media(max-width:760px){main{padding:14px 12px 28px}.hero{padding:20px}.card{padding:13px}.key{border-radius:4px}.row{gap:3px}}
 .manicure{display:flex;align-items:center;gap:6px}.manicure summary{cursor:pointer;background:#edf5e9;border:1px solid var(--line);border-radius:10px;padding:7px 10px;font-weight:650}.manicure-options{display:flex;flex-wrap:wrap;gap:5px;padding:8px 0}.manicure-options button::before{content:'';display:inline-block;width:12px;height:12px;border-radius:50%;background:var(--swatch);border:1px solid #345a4870;margin-inline-end:6px;vertical-align:middle}
 </style>
@@ -254,84 +254,92 @@ function drawHands(){
     const box = key.getBoundingClientRect();
     return {x:box.left-bounds.left+box.width/2, y:box.top-bounds.top+box.height/2};
   }
-  function path(d, fill, stroke, width){
+  function path(d,fill,stroke,width,opacity){
     const shape = document.createElementNS('http://www.w3.org/2000/svg','path');
-    for (const [name,value] of Object.entries({d,fill,stroke,'stroke-width':width,'stroke-linecap':'round','stroke-linejoin':'round'})) {
-      shape.setAttribute(name,value);
-    }
-    if (fill !== 'none') shape.setAttribute('fill-opacity', fill===polish[manicure] ? '.62' : '.56');
-    shape.setAttribute('stroke-opacity','.64');
+    const attributes = {
+      d, fill, stroke, 'stroke-width':width, 'fill-opacity':opacity,
+      'stroke-linecap':'round', 'stroke-linejoin':'round'
+    };
+    for (const [name,value] of Object.entries(attributes)) shape.setAttribute(name,value);
     overlay.append(shape);
   }
   const space = center(keyMap.get(' ').key);
   const unit = keyMap.get(course.home[3]).key.getBoundingClientRect().width;
-  const current = phrase[pos];
-  const target = current===undefined ? null : keyMap.get(current.toLowerCase());
-  const shift = target && (current!==current.toLowerCase() || (lang==='ru' && current===','))
+  if (!unit) return;
+  const char = phrase[pos];
+  const target = char===undefined ? null : keyMap.get(char.toLowerCase());
+  const shift = target && (char!==char.toLowerCase() || (lang==='ru' && char===','))
     ? keyMap.get(target.finger<4?'shiftR':'shiftL')
     : null;
-  const widths = [.16,.19,.21,.20,.20,.21,.19,.16,.23];
-  for (const [direction,indexes] of [[1,[0,1,2,3]],[-1,[7,6,5,4]]]){
-    const homes = indexes.map(index=>center(keyMap.get(course.home[homeColumns[index]]).key));
-    const outer = homes[0].x;
+
+  // Trace from the outer wrist around all five digits to the inner wrist.
+  // Use coordinates in key widths and mirror the profile for the other hand.
+  for (const [side,indexes] of [[1,[0,1,2,3]],[-1,[7,6,5,4]]]){
+    const origin = center(keyMap.get(course.home[homeColumns[indexes[0]]]).key);
+    const local = ({x,y})=>({x:side*(x-origin.x)/unit,y:(y-origin.y)/unit});
+    const at = ({x,y})=>(origin.x+side*x*unit)+' '+(origin.y+y*unit);
+    const point = (x,y)=>at({x,y});
+    const homes = indexes.map(index=>local(center(keyMap.get(course.home[homeColumns[index]]).key)));
     const inner = homes[3].x;
-    const knuckleY = space.y - unit*.13;
-    const wristY = bounds.height - 5;
-    path(
-      'M '+(outer-direction*unit*.12)+' '+knuckleY+
-      ' C '+(outer-direction*unit*.23)+' '+(knuckleY+unit*.45)+' '+(outer+direction*unit*.24)+' '+(wristY-12)+' '+(outer+direction*unit*.58)+' '+wristY+
-      ' Q '+(inner-direction*unit*.8)+' '+(wristY+4)+' '+(inner-direction*unit*.45)+' '+wristY+
-      ' C '+(inner-direction*unit*.21)+' '+(wristY-11)+' '+(inner+direction*unit*.48)+' '+(knuckleY+unit*.4)+' '+(inner+direction*unit*.28)+' '+(knuckleY-unit*.09)+
-      ' Q '+(inner-direction*unit*1.24)+' '+(knuckleY-unit*.64)+' '+(outer-direction*unit*.12)+' '+knuckleY+' Z',
-      '#efd0b5','#626850',1.3
-    );
-    function finger(fromX, fromY, destination, active, index){
-      const dx = destination.x-fromX;
-      const dy = destination.y-fromY;
+    const spacebar = local(space);
+    const wrist = (bounds.height-origin.y-4)/unit;
+    const web = [
+      {x:-.48,y:spacebar.y+.13},
+      {x:(homes[0].x+homes[1].x)/2+.02,y:spacebar.y-.56},
+      {x:(homes[1].x+homes[2].x)/2-.08,y:spacebar.y-.63},
+      {x:(homes[2].x+homes[3].x)/2-.07,y:spacebar.y-.46},
+      {x:inner-.04,y:spacebar.y+.43}
+    ];
+    const firstWeb = web[0];
+    let outline = 'M '+point(-.29,wrist)+' C '+point(-.24,wrist-.52)+' '+
+      point(-.51,firstWeb.y+.61)+' '+at(firstWeb);
+    const details = [];
+    function digit(from,to,tip,width,active,isThumb=false){
+      const root = {x:(from.x+to.x)/2,y:(from.y+to.y)/2};
+      const dx = tip.x-root.x;
+      const dy = tip.y-root.y;
       const length = Math.hypot(dx,dy) || 1;
-      const ux = dx/length;
-      const uy = dy/length;
-      const radius = Math.max(3.6,unit*widths[index]);
-      const arc = direction*radius*(index===8 ? 1.05 : .48);
-      function point(at, across=0){
-        const side = across+Math.sin(Math.PI*at)*arc;
-        return (fromX+dx*at-uy*side)+' '+(fromY+dy*at+ux*side);
-      }
-      const cap = Math.min(.20,radius/length);
-      const tip = 1-cap;
-      path(
-        'M '+point(-.06,-radius)+
-        ' C '+point(.23,-radius*1.08)+' '+point(.31,-radius*.91)+' '+point(.46,-radius*.88)+
-        ' C '+point(.62,-radius*.92)+' '+point(.72,-radius*.68)+' '+point(tip,-radius*.69)+
-        ' Q '+point(1.05,-radius*.65)+' '+point(1.04,0)+
-        ' Q '+point(1.05,radius*.68)+' '+point(tip,radius*.69)+
-        ' C '+point(.72,radius*.66)+' '+point(.61,radius*.92)+' '+point(.46,radius*.88)+
-        ' C '+point(.26,radius*.98)+' '+point(.17,radius*1.12)+' '+point(-.06,radius)+' Z',
-        active?'#edcbaa':'#f5d8bd','#605943',active?1.65:1.05
-      );
-      // Keep nail beds short and rounded, following each fingertip's angle.
-      const bed = Math.max(.61,1-cap*1.85);
-      path(
-        'M '+point(bed,-radius*.41)+
-        ' Q '+point(bed-cap*.32,0)+' '+point(bed,radius*.41)+
-        ' L '+point(1-cap*.63,radius*.43)+
-        ' Q '+point(1.012,0)+' '+point(1-cap*.63,-radius*.43)+' Z',
-        polish[manicure],'#715b50',.7
-      );
-      path('M '+point(.53,-radius*.63)+' Q '+point(.58,0)+' '+point(.52,radius*.63),'none','#91664a',.8);
-      if(active) path('M '+point(.27,-radius*.68)+' Q '+point(.32,0)+' '+point(.28,radius*.68),'none','#377756',1.5);
+      const alongX = dx/length;
+      const alongY = dy/length;
+      const crossX = -alongY;
+      const crossY = alongX;
+      const spot = (back,across)=>point(tip.x-alongX*back+crossX*across,tip.y-alongY*back+crossY*across);
+      const shoulder = Math.min(length*.47,isThumb ? .66 : .59);
+      const cap = width*.89;
+      outline += ' C '+point(from.x-.07,from.y-Math.min(length*.36,.61))+' '+
+        spot(shoulder,-width*1.12)+' '+spot(.11,-width)+
+        ' C '+spot(-cap,-width*.84)+' '+spot(-cap,width*.58)+' '+spot(.07,width*.91)+
+        ' C '+spot(shoulder,width*1.03)+' '+
+        point(to.x-.10,to.y-Math.min(length*.32,.56))+' '+at(to);
+      const nailWidth = width*.52;
+      const bed = isThumb ? .31 : .27;
+      const nail = 'M '+spot(bed,-nailWidth)+' Q '+spot(bed+.09,0)+' '+spot(bed,nailWidth)+
+        ' L '+spot(.015,nailWidth)+' Q '+spot(-cap*.77,0)+' '+spot(.015,-nailWidth)+' Z';
+      const joint = Math.min(length*.37,isThumb ? .56 : .70);
+      const crease = 'M '+spot(joint,-width*.55)+' Q '+spot(joint+.06,0)+' '+spot(joint,width*.48);
+      const accent = active ? 'M '+spot(.49,-width*.61)+' Q '+spot(.55,0)+' '+spot(.48,width*.6) : '';
+      details.push({nail,crease,accent});
     }
-    function drawFinger(index){
-      const position = indexes.indexOf(index);
-      const home = homes[position];
-      const activeKey = target?.finger===index ? target : shift?.finger===index ? shift : null;
-      const baseX = home.x+(1.5-position)*direction*unit*.15;
-      const baseY = knuckleY+unit*[.18,.03,-.12,-.04][position];
-      finger(baseX,baseY,activeKey?center(activeKey.key):home,Boolean(activeKey),index);
+    indexes.forEach((index,i)=>{
+      const next = target?.finger===index ? target : shift?.finger===index ? shift : null;
+      const home = homes[i];
+      const tip = next ? local(center(next.key)) : {x:home.x+[.01,.06,.14,.02][i],y:home.y+[.12,-.07,-.17,.04][i]};
+      digit(web[i],web[i+1],tip,[.205,.245,.265,.25][i],Boolean(next));
+    });
+    const thumbActive = target?.finger===8 && side===1;
+    const thumbTip = {x:spacebar.x-(thumbActive ? .27 : .48),y:spacebar.y+(thumbActive?0:.29)};
+    const thumbBase = {x:inner-.20,y:wrist-.12};
+    digit(web[4],thumbBase,thumbTip,.29,thumbActive,true);
+    outline += ' Q '+point(inner-.34,wrist+.16)+' '+point(inner-.69,wrist+.10)+
+      ' Q '+point(inner-1.65,wrist+.20)+' '+point(-.29,wrist)+' Z';
+    path(outline,'#f8e3cf','#42574b',1.65,.53);
+    path('M '+point(inner-.02,spacebar.y+.50)+' Q '+point(inner-.46,spacebar.y+.64)+' '+
+      point(inner-.64,spacebar.y+1.05),'none','#a17866a0',.95,0);
+    for (const {nail,crease,accent} of details){
+      path(nail,polish[manicure],'#836356a0',.8,manicure==='natural' ? .43 : .75);
+      path(crease,'none','#916e5b93',.75,0);
+      if (accent) path(accent,'none','#2f7149',1.6,0);
     }
-    indexes.filter(index=>target?.finger!==index && shift?.finger!==index).forEach(drawFinger);
-    finger(inner+direction*unit*.22,wristY-8,{x:space.x-direction*unit*.43,y:space.y},target?.finger===8,8);
-    indexes.filter(index=>target?.finger===index || shift?.finger===index).forEach(drawFinger);
   }
 }
 function localize(){
