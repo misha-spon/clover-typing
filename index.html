@@ -221,22 +221,23 @@ function drawHands(){
       ' Q '+(inner-direction*unit*.8)+' '+(elbowY-23)+' '+(outer-direction*unit*.29)+' '+elbowY+' Z',
       '#f8f2d794','#335e4480',1.4
     );
-    function finger(fromX, fromY, destination, active, thumb=false){
+    function finger(fromX, fromY, destination, active, index){
+      const thumb = index===8;
       const bendX = thumb ? fromX+direction*unit*.6 : fromX;
       const bendY = fromY-(thumb?5:unit*.7);
       const route = 'M '+fromX+' '+fromY+' Q '+bendX+' '+bendY+' '+destination.x+' '+destination.y;
-      const width = Math.max(8,unit*(thumb?.47:.43));
+      const width = Math.max(8,unit*(thumb ? .47 : .43));
       path(route,'none',active?'#184d36c9':'#31584185',width+2.4);
-      path(route,'none',active?'#7fbd8da0':'#fbf4dbae',width);
+      path(route,'none',active?'#7fbd8da0':colors[index]+'ae',width);
     }
     function drawFinger(index){
       const position = indexes.indexOf(index);
       const home = homes[position];
       const activeKey = target?.finger===index ? target : shift?.finger===index ? shift : null;
-      finger(home.x+direction*unit*.12,elbowY,activeKey?center(activeKey.key):home,Boolean(activeKey));
+      finger(home.x+direction*unit*.12,elbowY,activeKey?center(activeKey.key):home,Boolean(activeKey),index);
     }
     indexes.filter(index=>target?.finger!==index && shift?.finger!==index).forEach(drawFinger);
-    finger(inner+direction*unit*.22,wristY-8,{x:space.x-direction*unit*.43,y:space.y},target?.finger===8,true);
+    finger(inner+direction*unit*.22,wristY-8,{x:space.x-direction*unit*.43,y:space.y},target?.finger===8,8);
     indexes.filter(index=>target?.finger===index || shift?.finger===index).forEach(drawFinger);
   }
 }
